@@ -18,3 +18,8 @@ The counter at the top shows how many positions you've seen and how many of your
 ## Piece art
 
 The chess pieces are original artwork drawn for London Trainer.
+
+## Publishing
+
+See [Google Play publishing](docs/publishing.md) for credential setup, internal
+testing uploads, tester access, store assets, and promotion to other tracks.

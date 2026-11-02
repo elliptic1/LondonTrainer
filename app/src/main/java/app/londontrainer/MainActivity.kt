@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
@@ -45,6 +46,9 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+
+private const val PrivacyUrl = "https://elliptic1.github.io/LondonTrainer/privacy.html"
+private val ChromeHeight = 430.dp // Everything but the board, with room for a short coach message.
 
 object Palette {
     val Felt = Color(0xFF302E2B)
@@ -194,13 +198,17 @@ private fun Trainer(nodes: List<Node>) {
         blackToReply = false
     }
 
+    BoxWithConstraints(Modifier.fillMaxSize().background(Palette.Felt)) {
+    val boardMax = minOf(maxWidth, maxHeight - ChromeHeight)
     Column(
-        Modifier.fillMaxSize().background(Palette.Felt)
+        Modifier.fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)),
     ) {
         TopBar(progress.seen.size, nodes.size, progress.cleanRuns, progress.runs)
         MoveStrip(moves)
         PlayerStrip(R.drawable.piece_bk, "Black", if (blackToReply) "Thinking…" else "", muted = true)
+        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Box(Modifier.widthIn(max = boardMax)) {
         Board(
             position = pos,
             selected = selected,
@@ -231,9 +239,11 @@ private fun Trainer(nodes: List<Node>) {
                 }
             },
         )
+        }
+        }
         PlayerStrip(R.drawable.piece_wk, "You", if (done || blackToReply) "" else "Your move", muted = false)
         PlanRow(played)
-        Box(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
+        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
             when {
                 !done -> Coach(feedback.tone.title, feedback.text, feedback.tone)
                 mistakes == 0 -> Coach("Clean run!", "No mistakes. ${feedback.text}", Tone.Good)
@@ -243,6 +253,15 @@ private fun Trainer(nodes: List<Node>) {
                     Tone.Warn,
                 )
             }
+            val links = LocalUriHandler.current
+            Text(
+                "Privacy policy",
+                color = Palette.Muted,
+                fontSize = 12.sp,
+                modifier = Modifier.align(Alignment.End)
+                    .clickable(role = Role.Button) { runCatching { links.openUri(PrivacyUrl) } }
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
+            )
         }
         Row(
             Modifier.fillMaxWidth().background(Palette.Panel).navigationBarsPadding().padding(12.dp, 8.dp),
@@ -264,6 +283,7 @@ private fun Trainer(nodes: List<Node>) {
                 }
             }
         }
+    }
     }
 }
 

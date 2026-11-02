@@ -249,7 +249,7 @@ private fun DrawScope.drawPiece(image: ImageBitmap, center: Offset, side: Float,
 
 private fun DrawScope.drawBadge(mark: Mark, corner: Offset, cell: Float, pop: Float) {
     val r = cell * 0.2f * pop
-    val c = corner + Offset(cell * 0.86f, cell * 0.14f)
+    val c = corner + Offset(cell * 0.8f, cell * 0.2f) // Stays inside the square so it is not clipped at the board edge.
     val stroke = cell * 0.055f * pop
     fun line(x0: Float, y0: Float, x1: Float, y1: Float) =
         drawLine(Color.White, c + Offset(x0, y0) * r, c + Offset(x1, y1) * r, stroke, StrokeCap.Round)

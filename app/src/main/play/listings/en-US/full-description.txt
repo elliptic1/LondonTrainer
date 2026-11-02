@@ -1,0 +1,24 @@
+Learn one chess opening properly: the London System, as White.
+
+London Trainer isn't a chess game. You play the opening, Black tries something different each time, and when your setup is finished you start over. Short runs, real repetition, and a plan you can take into your own games.
+
+BUILD THE SETUP
+The eight moves of the system sit under the board and light up as you play them: d4, Bf4, e3, Nf3, c3, Nbd2, Bd3, O-O.
+
+HANDLE WHAT BLACK DOES
+Black varies its replies across more than 2,500 positions. When it attacks your bishop, hits b2 with the queen, or strikes in the center, you learn the right response and then get back to the plan.
+
+LEARN WHY
+Every correct move comes with a short explanation, so you understand the plan instead of memorizing it. A green check means the normal plan. A blue check means you had to adjust.
+
+FIX YOUR MISTAKES
+A wrong move isn't played. If you played a plan move at the wrong moment, you're shown what Black would do to punish it. Positions you get wrong come back in later runs until you get them right.
+
+HINTS WHEN YOU'RE STUCK
+The first hint highlights the piece to move, and the second highlights where it goes. Using a hint brings that position back later too.
+
+MOVE PIECES YOUR WAY
+Pick a piece up and drop it on its square, or tap the piece and then the square.
+
+NO ACCOUNT, NO ADS, NO INTERNET NEEDED
+London Trainer runs entirely on your phone and collects no data.

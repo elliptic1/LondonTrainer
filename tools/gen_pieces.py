@@ -4,6 +4,7 @@
 Coordinates are 0..100 with y down. Each piece is a stack of parts, painted bottom to top,
 and every part gets its own outline, so the stack reads as turned, separate pieces.
 """
+import os
 import re
 import sys
 from pathlib import Path
@@ -12,8 +13,8 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 OUT = Path(__file__).parent.parent / "app/src/main/res/drawable-nodpi"
-SIZE = 256
-SS = 4  # supersampling
+SIZE = int(os.environ.get("PIECE_SIZE", 256))
+SS = 2 if SIZE > 512 else 4  # supersampling
 S = SIZE * SS
 U = S / 100
 
