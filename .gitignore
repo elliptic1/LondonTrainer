@@ -1,0 +1,8 @@
+.gradle/
+build/
+local.properties
+*.apk
+tools/review.json
+.kotlin/
+.DS_Store
+__pycache__/
