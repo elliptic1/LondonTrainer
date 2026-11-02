@@ -6,3 +6,9 @@ tools/review.json
 .kotlin/
 .DS_Store
 __pycache__/
+
+# Local publishing material and bundles
+*.aab
+*.jks
+*.keystore
+*play-service-account*.json
