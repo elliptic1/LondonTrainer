@@ -6,6 +6,7 @@ The captures dir holds 1080x2400 PNGs: held, correct, adapt, wrong, finish.
 """
 import os
 import sys
+import subprocess
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -61,22 +62,8 @@ def rounded(image, radius):
 
 
 def launcher(pieces):
-    knight = pieces["wn"]
-    # Adaptive foreground: 108dp canvas, keep the art inside the 66dp safe zone.
-    foreground = Image.new("RGBA", (432, 432), (0, 0, 0, 0))
-    art = knight.resize((272, 272), Image.LANCZOS)
-    foreground.alpha_composite(art, (80, 80))
-    foreground.save(DRAWABLE / "ic_launcher_fg.png", optimize=True)
-
-    icon = Image.new("RGBA", (512, 512), GREEN + (255,))
-    art = knight.resize((400, 400), Image.LANCZOS)
-    shadow = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
-    shadow.paste((0, 0, 0, 90), (56, 66), art.split()[3])
-    icon.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(9)))
-    icon.alpha_composite(art, (56, 56))
-    target = GRAPHICS / "icon"
-    target.mkdir(parents=True, exist_ok=True)
-    icon.convert("RGB").save(target / "icon.png", optimize=True)
+    # Keep regenerated marketing art aligned with the adaptive launcher design.
+    subprocess.run([sys.executable, "-I", str(ROOT / "tools/gen_app_icon.py")], check=True)
 
 
 def feature(pieces):
