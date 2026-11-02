@@ -31,8 +31,11 @@ jobs:
           java-version: '17'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
-      - name: Install Android SDK components
-        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;35.0.0'
+          log-accepted-android-sdk-licenses: false
       - name: Run credential-script tests, app tests, and lint
         run: |
           python3 -I -m unittest discover -s ci -p 'test_*.py'
