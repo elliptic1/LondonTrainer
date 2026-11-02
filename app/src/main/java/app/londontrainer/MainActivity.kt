@@ -132,7 +132,7 @@ private fun Trainer(nodes: List<Node>) {
     var mark by remember(run) { mutableStateOf<Mark?>(null) }
     var moves by remember(run) { mutableStateOf(listOf<String>()) }
     var played by remember(run) { mutableStateOf(setOf<String>()) }
-    var mistakes by remember(run) { mutableIntStateOf(0) }
+    var score by remember(run) { mutableStateOf(RunScore()) }
     var hints by remember(run) { mutableIntStateOf(0) }
     var slipped by remember(run) { mutableStateOf(false) }
     var blackToReply by remember(run) { mutableStateOf(false) }
@@ -145,7 +145,7 @@ private fun Trainer(nodes: List<Node>) {
     fun finish() {
         done = true
         progress.runs++
-        if (mistakes == 0) progress.cleanRuns++
+        if (score.clean) progress.cleanRuns++
         progress.save()
     }
 
@@ -153,7 +153,9 @@ private fun Trainer(nodes: List<Node>) {
     fun tryMove(move: String): Boolean {
         selected = -1
         val to = Position.sq(move, 2)
-        return when (val result = judge(node, move)) {
+        val result = judge(node, move)
+        score = score.record(result)
+        return when (result) {
             Attempt.Correct -> {
                 progress.seen += nodeId
                 if (!slipped) progress.missed -= nodeId
@@ -170,12 +172,13 @@ private fun Trainer(nodes: List<Node>) {
                 true
             }
             is Attempt.Playable -> {
+                slipped = true
+                progress.missed += nodeId
                 feedback = Feedback(result.text, Tone.Warn)
                 mark = Mark(to, Tone.Warn)
                 false
             }
             is Attempt.Wrong -> {
-                mistakes++
                 slipped = true
                 progress.missed += nodeId
                 hints = maxOf(hints, 1)
@@ -246,10 +249,10 @@ private fun Trainer(nodes: List<Node>) {
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
             when {
                 !done -> Coach(feedback.tone.title, feedback.text, feedback.tone)
-                mistakes == 0 -> Coach("Clean run!", "No mistakes. ${feedback.text}", Tone.Good)
+                score.clean -> Coach("Clean run!", "Every move from memory, without retries or hints. ${feedback.text}", Tone.Good)
                 else -> Coach(
                     "Line finished",
-                    "$mistakes mistake${if (mistakes == 1) "" else "s"}. Those positions will come back.",
+                    "${score.summary}. Those positions will come back.",
                     Tone.Warn,
                 )
             }
@@ -277,6 +280,7 @@ private fun Trainer(nodes: List<Node>) {
                     Modifier.weight(1f),
                     enabled = !blackToReply && hints < 2,
                 ) {
+                    score = score.withHint()
                     hints++
                     slipped = true
                     progress.missed += nodeId
