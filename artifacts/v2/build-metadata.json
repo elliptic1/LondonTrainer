@@ -1,0 +1,15 @@
+{
+  "version_name": "2.0",
+  "version_code": 4,
+  "application_id": "app.londontrainer",
+  "target_sdk": 36,
+  "debug_apk_sha256": "70b725184a197faa1be467810e5eb724556346282fbf2927c2a1623d7288456d",
+  "repertoire_sha256": "2d490372044519a4d46d3460b17285254c2fb90f231606e2cc7d601422b55ba5",
+  "kotlin_tests": 52,
+  "python_tests": 7,
+  "device": "emulator-5556",
+  "android_api": 35,
+  "date": "2026-11-01",
+  "commit_base": "fadb9bef5f105db4d977735f41d632c70b0f80c8",
+  "changes_committed": false
+}

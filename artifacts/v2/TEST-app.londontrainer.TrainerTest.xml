@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app.londontrainer.TrainerTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-02T02:44:35" hostname="Mac" time="2.108">
+  <properties/>
+  <testcase name="positionKeysAreStableAndDistinct" classname="app.londontrainer.TrainerTest" time="0.001"/>
+  <testcase name="perftEnPassantAndPromotion" classname="app.londontrainer.TrainerTest" time="0.018"/>
+  <testcase name="legacyKeysUseTheSameStableFormat" classname="app.londontrainer.TrainerTest" time="0.001"/>
+  <testcase name="unsoundPlanMoveIsPunished" classname="app.londontrainer.TrainerTest" time="0.001"/>
+  <testcase name="pathLeadsToItsPosition" classname="app.londontrainer.TrainerTest" time="0.043"/>
+  <testcase name="unusableEnPassantDoesNotSplitProgress" classname="app.londontrainer.TrainerTest" time="0.0"/>
+  <testcase name="rightIdeaWrongOrderIsntAMistake" classname="app.londontrainer.TrainerTest" time="0.0"/>
+  <testcase name="repertoireIsClosedAndLegal" classname="app.londontrainer.TrainerTest" time="0.282"/>
+  <testcase name="strayMoveIsWrongButHasNothingToPlayOut" classname="app.londontrainer.TrainerTest" time="0.001"/>
+  <testcase name="diffEnPassantRemovesThePawnBeside" classname="app.londontrainer.TrainerTest" time="0.0"/>
+  <testcase name="threatsAreRealBlackMoves" classname="app.londontrainer.TrainerTest" time="0.075"/>
+  <testcase name="nearlyEveryLineFinishesTheSetup" classname="app.londontrainer.TrainerTest" time="0.046"/>
+  <testcase name="perftKiwipete" classname="app.londontrainer.TrainerTest" time="0.013"/>
+  <testcase name="diffCastlingMovesBothPieces" classname="app.londontrainer.TrainerTest" time="0.001"/>
+  <testcase name="duePositionsComeBack" classname="app.londontrainer.TrainerTest" time="1.5"/>
+  <testcase name="explanationsDontTeachTheWrongThing" classname="app.londontrainer.TrainerTest" time="0.048"/>
+  <testcase name="diffCapture" classname="app.londontrainer.TrainerTest" time="0.0"/>
+  <testcase name="everyGroupExistsInTheGraph" classname="app.londontrainer.TrainerTest" time="0.041"/>
+  <testcase name="perftStart" classname="app.londontrainer.TrainerTest" time="0.036"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

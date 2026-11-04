@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="cards">2xekxx79ci3zs:1:20758:0,1h2wet8w3ayig:0:20758:1</string>
+    <int name="cleanLines" value="4" />
+    <boolean name="migratedV1" value="true" />
+    <int name="lines" value="7" />
+</map>

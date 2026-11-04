@@ -1,1 +1,1 @@
-A polished new look with original pieces, smoother layout on smaller screens, and a privacy policy link.
+London Trainer 2.0 is a full rebuild. Drill thousands of London System positions, with Black's replies weighted by how often they appear in real games. New positions are taught first, then come back for review just as you start to forget them. Wrong plan moves are punished on the board, then taken back. Also new: a Guide, Settings, sound effects, and layouts for landscape and tablets. Your progress carries over.

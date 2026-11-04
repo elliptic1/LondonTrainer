@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app.londontrainer.MemoryTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-11-02T02:44:35" hostname="Mac" time="0.01">
+  <properties/>
+  <testcase name="readinessRequiresKnowingTheWholeLine" classname="app.londontrainer.MemoryTest" time="0.001"/>
+  <testcase name="aMissStartsOverAndComesBackToday" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="openingReadinessIncludesTheMovesBeforeItsShortcut" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="teachingNeverOverwritesProgress" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="aGapEndsTheCount" classname="app.londontrainer.MemoryTest" time="0.001"/>
+  <testcase name="streakCountsDaysAndBreaksOnASkippedDay" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="progressSurvivesASaveAndLoad" classname="app.londontrainer.MemoryTest" time="0.005"/>
+  <testcase name="aDamagedSaveKeepsWhatItCan" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="hardHoldsTheBoxAndTriesAgainTomorrow" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="beingTaughtIsNotKnowing" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="migrationPreservesKnownAndMissedPositionsAndIgnoresBadIds" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="replayingEarlyProvesNothing" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="shakiestPositionsComeFirstAndUnknownOnesAreIgnored" classname="app.londontrainer.MemoryTest" time="0.002"/>
+  <testcase name="cleanAnswersSpaceOutReviews" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <testcase name="intervalsTopOutInsteadOfOverflowing" classname="app.londontrainer.MemoryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
