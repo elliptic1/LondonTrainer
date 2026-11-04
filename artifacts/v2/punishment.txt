@@ -1,0 +1,7 @@
+{
+  "position": "rnbqkb1r/pppppppp/8/7n/3P1B2/8/PPP1PPPP/RN1QKBNR w KQkq - 3 3",
+  "expected": "f4g3",
+  "wrong": "g1f3",
+  "reply": "h5f4",
+  "restored": true
+}

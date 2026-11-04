@@ -9,7 +9,10 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -21,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -28,8 +32,11 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
@@ -48,10 +55,14 @@ private const val BadgeMs = 130
 private const val LiftedScale = 1.6f
 private const val LiftedRise = 0.8f // in squares, so the finger doesn't hide the piece
 
-private val LightSquare = Color(0xFFEBECD0)
-private val DarkSquare = Color(0xFF739552)
-private val LastLight = Color(0xFFF5F682)
-private val LastDark = Color(0xFFB9CA43)
+class BoardColors(val name: String, val light: Color, val dark: Color, val lastLight: Color, val lastDark: Color)
+
+val BoardThemes = listOf(
+    BoardColors("Green", Color(0xFFEBECD0), Color(0xFF739552), Color(0xFFF5F682), Color(0xFFB9CA43)),
+    BoardColors("Walnut", Color(0xFFF0D9B5), Color(0xFFB58863), Color(0xFFF6EB72), Color(0xFFDCC34B)),
+    BoardColors("Slate", Color(0xFFDEE3E6), Color(0xFF7D95A6), Color(0xFFE6EDA0), Color(0xFFA9BD6F)),
+)
+
 private val HintColor = Color(0xA081B64C)
 private val MoveDot = Color(0x24000000)
 private val HoverRing = Color(0x40FFFFFF)
@@ -64,6 +75,9 @@ private val PieceArt = mapOf(
 
 /** A verdict shown as a badge on the square the piece went (or tried to go) to. */
 class Mark(val square: Int, val tone: Tone)
+
+/** Points out a move: what to play, or what Black has in mind. */
+class Arrow(val from: Int, val to: Int, val color: Color)
 
 /** Positions are in squares from the board's top left, so they survive a resize. */
 private class Flight(val piece: Char, val square: Int, val start: Offset, val end: Offset, val scale: Float)
@@ -98,9 +112,12 @@ fun Board(
     hintFrom: Int,
     hintTo: Int,
     mark: Mark?,
-    onTap: (Int) -> Unit,
-    onPick: (Int) -> Boolean,
-    onDrop: (Int) -> Boolean,
+    arrows: List<Arrow>,
+    colors: BoardColors,
+    modifier: Modifier,
+    onTap: (Int) -> Unit = {},
+    onPick: (Int) -> Boolean = { false },
+    onDrop: (Int) -> Boolean = { false },
 ) {
     val art = PieceArt.mapValues { ImageBitmap.imageResource(it.value) }
     val haptics = LocalHapticFeedback.current
@@ -143,8 +160,8 @@ fun Board(
         "abcdefgh".map { measurer.measure(it.toString(), style) } to "12345678".map { measurer.measure(it.toString(), style) }
     }
 
-    Canvas(
-        Modifier.fillMaxWidth().aspectRatio(1f)
+    Box(
+        modifier
             .semantics { contentDescription = "Chess board, White at the bottom" }
             .pointerInput(Unit) {
                 awaitEachGesture {
@@ -178,6 +195,7 @@ fun Board(
                 }
             },
     ) {
+    Canvas(Modifier.fillMaxSize()) {
         val cell = size.width / 8f
         fun corner(s: Int) = Offset(s % 8 * cell, (7 - s / 8) * cell)
         val square = Size(cell, cell)
@@ -186,9 +204,9 @@ fun Board(
         val dragging = dragFrom >= 0
 
         for (s in 0..63) {
-            drawRect(if (light(s)) LightSquare else DarkSquare, corner(s), square)
+            drawRect(if (light(s)) colors.light else colors.dark, corner(s), square)
             val marked = s == selected || lastMove != null && (s == Position.sq(lastMove, 0) || s == Position.sq(lastMove, 2))
-            if (marked) drawRect(if (light(s)) LastLight else LastDark, corner(s), square, alpha = 0.85f)
+            if (marked) drawRect(if (light(s)) colors.lastLight else colors.lastDark, corner(s), square, alpha = 0.85f)
             if (s == hintFrom || s == hintTo) drawRect(HintColor, corner(s), square)
             if (s == mark?.square && mark.tone == Tone.Bad) drawRect(Palette.Bad, corner(s), square, alpha = 0.6f * badge.value)
         }
@@ -196,8 +214,8 @@ fun Board(
             val file = labels.first[i]
             val rank = labels.second[i]
             val pad = cell * 0.05f
-            drawText(file, if (light(i)) DarkSquare else LightSquare, Offset((i + 1) * cell - file.size.width - pad, size.height - file.size.height))
-            drawText(rank, if (light(i * 8)) DarkSquare else LightSquare, Offset(pad, (7 - i) * cell))
+            drawText(file, if (light(i)) colors.dark else colors.light, Offset((i + 1) * cell - file.size.width - pad, size.height - file.size.height))
+            drawText(rank, if (light(i * 8)) colors.dark else colors.light, Offset(pad, (7 - i) * cell))
         }
         for (s in targets) {
             val c = corner(s) + Offset(cell / 2, cell / 2)
@@ -214,6 +232,7 @@ fun Board(
             if (f.square == dragFrom) continue
             drawPiece(art.getValue(f.piece), lerp(f.start, f.end, t) * cell, cell * (f.scale + (1 - f.scale) * t))
         }
+        for (a in arrows) drawArrow(a, cell)
         if (mark != null && badge.value > 0f) drawBadge(mark, corner(mark.square), cell, badge.value)
 
         // Restart under a held piece (second finger) can empty its square.
@@ -233,6 +252,52 @@ fun Board(
             drawPiece(art.getValue(position.board[dragFrom]), held, big)
         }
     }
+    SquaresForScreenReaders(position, selected, targets, tap, pick)
+    }
+}
+
+/** The board is one canvas to the eye, but a screen reader needs 64 squares to explore and tap. */
+@Composable
+private fun SquaresForScreenReaders(position: Position, selected: Int, targets: List<Int>, tap: (Int) -> Unit, pick: (Int) -> Boolean) {
+    Column(Modifier.fillMaxSize()) {
+        for (rank in 7 downTo 0) Row(Modifier.fillMaxWidth().weight(1f)) {
+            for (file in 0..7) {
+                val s = rank * 8 + file
+                Box(
+                    Modifier.weight(1f).fillMaxSize().clearAndSetSemantics {
+                        contentDescription = "${'a' + file}${rank + 1}, ${pieceName(position.board[s])}"
+                        if (s == selected) stateDescription = "selected" else if (s in targets) stateDescription = "can move here"
+                        onClick { if (s == selected || !pick(s)) tap(s); true }
+                    },
+                )
+            }
+        }
+    }
+}
+
+private fun pieceName(c: Char) = if (c == '.') "empty" else {
+    val side = if (c.isUpperCase()) "white" else "black"
+    val name = when (c.lowercaseChar()) { 'k' -> "king"; 'q' -> "queen"; 'r' -> "rook"; 'b' -> "bishop"; 'n' -> "knight"; else -> "pawn" }
+    "$side $name"
+}
+
+private fun DrawScope.drawArrow(a: Arrow, cell: Float) {
+    val from = center(a.from) * cell
+    val to = center(a.to) * cell
+    val along = (to - from) / (to - from).getDistance()
+    val across = Offset(-along.y, along.x)
+    val neck = to - along * (cell * 0.42f)
+    val color = a.color.copy(alpha = 0.85f)
+    drawLine(color, from + along * (cell * 0.28f), neck, cell * 0.15f)
+    drawPath(
+        Path().apply {
+            moveTo(to.x, to.y)
+            (neck + across * (cell * 0.26f)).let { lineTo(it.x, it.y) }
+            (neck - across * (cell * 0.26f)).let { lineTo(it.x, it.y) }
+            close()
+        },
+        color,
+    )
 }
 
 private fun DrawScope.drawPiece(image: ImageBitmap, center: Offset, side: Float, alpha: Float = 1f, tint: ColorFilter? = null) {

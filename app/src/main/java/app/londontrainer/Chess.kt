@@ -37,6 +37,22 @@ class Position(
         return Position(b, !whiteToMove, rights, ep)
     }
 
+    /** Names the position itself, so saved progress survives a repertoire update (node ids don't). */
+    fun key(): String {
+        var h = -3750763034362895579L // FNV-1a
+        fun mix(c: Char) { h = (h xor c.code.toLong()) * 1099511628211L }
+        board.forEach(::mix)
+        mix(if (whiteToMove) 'w' else 'b')
+        castling.forEach(::mix)
+        // An unusable en-passant target does not change a chess position. Canonicalizing it
+        // keeps transpositions stable even when regeneration chooses a different parent path.
+        val ep = if (epSquare >= 0 && legalMoves().any {
+            board[sq(it, 0)].lowercaseChar() == 'p' && sq(it, 2) == epSquare
+        }) epSquare else -1
+        "$ep".forEach(::mix)
+        return h.toULong().toString(36)
+    }
+
     fun legalMoves(): List<String> = pseudoMoves().filter { play(it).let { next -> !next.attacks(next.king(whiteToMove)) } }
 
     private fun king(white: Boolean) = board.indexOf(if (white) 'K' else 'k')

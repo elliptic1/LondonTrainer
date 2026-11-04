@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app.londontrainer.DrillTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-11-02T02:44:30" hostname="Mac" time="4.309">
+  <properties/>
+  <testcase name="whileTeachingOnlyTheArrowCountsAndNothingIsPenalized" classname="app.londontrainer.DrillTest" time="0.39"/>
+  <testcase name="aNewPositionIsTaughtButNotYetKnown" classname="app.londontrainer.DrillTest" time="0.19"/>
+  <testcase name="aHintCountsAsNotKnowingAndGivesTheIdeaFirst" classname="app.londontrainer.DrillTest" time="0.1"/>
+  <testcase name="aKnownPositionIsTestedNotTaught" classname="app.londontrainer.DrillTest" time="0.079"/>
+  <testcase name="blackMovesEvenInEveryLineAndTheSetupIsCredited" classname="app.londontrainer.DrillTest" time="0.512"/>
+  <testcase name="progressIsSavedOnEveryAnswerNotWhenTheLineEnds" classname="app.londontrainer.DrillTest" time="0.055"/>
+  <testcase name="reviewingTheFirstMoveWorks" classname="app.londontrainer.DrillTest" time="0.053"/>
+  <testcase name="movesAreIgnoredWhenItIsntYourTurn" classname="app.londontrainer.DrillTest" time="0.052"/>
+  <testcase name="reviewJumpsStraightToTheDuePosition" classname="app.londontrainer.DrillTest" time="0.055"/>
+  <testcase name="anOpeningSessionStaysInItsOpening" classname="app.londontrainer.DrillTest" time="0.139"/>
+  <testcase name="aMistakeIsSavedTheMomentItHappens" classname="app.londontrainer.DrillTest" time="0.05"/>
+  <testcase name="thePlanOrderSlipOnlyHoldsTheCardBack" classname="app.londontrainer.DrillTest" time="0.069"/>
+  <testcase name="aMissedReviewComesBackOnceInTheSameSession" classname="app.londontrainer.DrillTest" time="0.071"/>
+  <testcase name="reviewAnsweredCleanlyMovesThePositionUp" classname="app.londontrainer.DrillTest" time="0.068"/>
+  <testcase name="recoveringFromAMistakeDoesntCountAsKnowingIt" classname="app.londontrainer.DrillTest" time="0.049"/>
+  <testcase name="hintsDoNotProduceCleanLines" classname="app.londontrainer.DrillTest" time="0.067"/>
+  <testcase name="aFinishedLineCanBeSteppedThrough" classname="app.londontrainer.DrillTest" time="0.046"/>
+  <testcase name="aWrongPlanMovePlaysOutThePunishmentThenTakesItBack" classname="app.londontrainer.DrillTest" time="2.261"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -6,6 +6,7 @@ tools/review.json
 .kotlin/
 .DS_Store
 __pycache__/
+tools/freq.json
 
 # Local publishing material and bundles
 *.aab

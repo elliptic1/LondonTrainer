@@ -37,8 +37,8 @@ android {
         applicationId = "com.tbse.london"
         minSdk = 31
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 4
+        versionName = "2.0"
     }
     buildFeatures { compose = true }
     signingConfigs {
@@ -73,7 +73,7 @@ play {
     resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.AUTO)
 }
 
-tasks.withType<Test> { inputs.file("src/main/assets/repertoire.json") }
+tasks.withType<Test> { inputs.files("src/main/assets/repertoire.json", "src/main/assets/legacy-positions.json") }
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2026.06.01"))

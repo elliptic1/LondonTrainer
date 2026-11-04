@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Felt from the first frame: no white flash before Compose draws. -->
+    <style name="Theme.LondonTrainer" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/felt</item>
+        <item name="android:windowSplashScreenBackground">@color/felt</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    <color name="felt">#302E2B</color>
+</resources>

@@ -1,0 +1,30 @@
+{
+  "positions": 14586,
+  "unique_positions": 14567,
+  "terminal_nodes": 2260,
+  "castled_terminal_nodes": 2095,
+  "weighted_castling_share": 0.9282190249141509,
+  "max_white_moves": 24,
+  "end_reasons": {
+    "decisive advantage": 15,
+    "castled": 2095,
+    "move limit": 150
+  },
+  "positions_with_multiple_answers": 7,
+  "explanations": {
+    "plan": 6719,
+    "react": 1681,
+    "recapture": 1541,
+    "engine": 2341,
+    "capture": 685,
+    "check": 222,
+    "threat": 373,
+    "escape": 523,
+    "develop": 200,
+    "pressure": 90,
+    "order": 3,
+    "castle": 54,
+    "defend": 56,
+    "space": 98
+  }
+}

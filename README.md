@@ -2,19 +2,35 @@
 
 Learn one chess opening properly: the London System, as White.
 
-You don't play a whole game. You play the opening, the computer tries something different each time, and when your setup is finished you start over.
+You don't play a whole game. You play the opening against the moves real players actually choose, and London Trainer works out what you know, what you're forgetting, and what to show you next.
 
 ## How it works
 
-- **Move pieces your way.** Pick a piece up and drop it on its square, or tap the piece and then the square. Dots show where it can go, and a move that isn't right sends the piece back.
-- **Build the setup.** The eight moves of the system are shown under the board and light up as you play them: d4, Bf4, e3, Nf3, c3, Nbd2, Bd3, O-O.
-- **Handle what Black does.** Black varies its replies. When it attacks your bishop, hits b2 with the queen or strikes in the center, you learn the right response, then get back to the plan.
-- **Learn why.** Every correct move comes with a short explanation. A green check means the normal plan; a blue check means you had to adjust.
-- **Fix your mistakes.** A wrong move isn't played. If you played a plan move at the wrong moment, you're shown what Black would do to punish it. Positions you get wrong come back in later runs until you get them right.
-- **Use hints if you're stuck.** The first hint highlights the piece to move, and the second highlights where it goes. Using a hint brings that position back later too.
+- **Meet each position once.** The first time you see a position, an arrow shows the move and the coach explains why.
+- **Then prove you know it.** Copying an arrow isn't knowing a move, so new positions come back straight away for you to find on your own.
+- **Review what's fading.** Every position you learn is scheduled. Get it right and it comes back later and later: tomorrow, in three days, in a week, in a month. Get it wrong and it comes back today. Reviews skip straight to the moment that matters, so five minutes goes a long way.
+- **See why a mistake fails.** Play a setup move at the wrong moment and it stays on the board long enough for Black to punish it, then it's taken back so you can find the right idea.
+- **Get a nudge, not the answer.** The first hint tells you what Black is threatening and which piece to move. The second shows the square.
+- **Walk back through a finished line.** Step through it move by move, with the reason for each one.
+- **Practice by opening.** Struggling with the King's Indian or the Dutch? Go straight there. Each opening shows how much of it you've learned.
+- **Read the guide.** The eight setup moves, Black's usual tests and your answers, and what to do once you've castled.
 
-The counter at the top shows how many positions you've seen and how many of your runs were clean.
+## What you're trained against
 
-## Piece art
+Black's replies are weighted using a sample of 98,059 club-level London games from the CC0 Lichess open database, with thematic tests added and Stockfish replies used where data is sparse. Every White move is checked with Stockfish. Lines aim to finish the setup; a decisive position or a long tactical detour can end a line earlier.
 
-The chess pieces are original artwork drawn for London Trainer.
+## Your readiness score
+
+Your readiness score answers one question: what is your chance of knowing every White move in a typical line? It counts positions only once you've played them unaided, and common moves count for more than rare ones.
+
+## Good to know
+
+Works offline, with no account and no tracking. Your progress is saved locally. The app works in portrait and landscape, on phones, tablets and foldables, and supports TalkBack. Sound, teaching arrows and board colors can all be changed in Settings.
+
+## Piece art and sound
+
+The chess pieces and sound effects are original work created for London Trainer.
+
+For build instructions, data provenance, and learning rules, see [the development notes](docs/DEVELOPMENT.md). Test results and screenshots are in [the validation report](docs/VALIDATION.md).
+
+Pushes to `develop` publish to Play internal testing; see [the CI setup](docs/CI.md).
